@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wrath of the Fallen Queen</title>
+    <link rel="stylesheet" href="../WrathOfTheFallenQueen/style/style.css">
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+
+<body>
+    <div id="mainCurtain" class="main_curtain"></div>
+    <!-- <div class="moving_svg"></div> -->
+
+    <div id="game" class="game_background">
+        <div id="settingsScreen" class="settings_screen">
+            <div id="settingsBack"> BACK </div>
+            <div class="settings_heading"> Steuerung </div>
+            <img src="../img/settings.png" alt="Steuerungbild">
+        </div>
+
+        <div id="creditsScreen" class="credits_screen ">
+            <div id="creditsBack"> BACK </div>
+            <div class="credits_heading"> Mitwirkende </div>
+            <div class="contributor_name">Projektkoordinator: <span class="highlight">Vadim Niedental</span></div>
+            <div class="contributor_name">Lead-Programmer: <span class="highlight">Simon Ofenloch</span></div>
+            <div class="contributor_name">Lead-Artist: <span class="highlight">Larissa Götze</span></div>
+            <div class="contributor_name">Programmer/Artist: <span class="highlight">Miko Schlager</span></div>
+        </div>
+
+        <div id="mainContainer" class="main_container main_container_ACTIVE">
+            <div id="containerLine" class="container_line"></div>
+            <div class="line"></div>
+            <div class="line2"></div>
+            <a id="startButton" class="start" href="levelauswahl.html" onclick="delayRedirect(event)">
+                <div class="line"></div>
+            </a>
+            <div id="settingsButton" class="settings">
+                <div class="line"></div>
+            </div>
+            <div id="creditsButton" class="credits">
+                <div class="line"></div>
+            </div>
+            <div id="exitButton" class="exit_button">Exit
+                <div class="line"></div>
+            </div>
+        </div>
+
+        <div id="mainHeading" class="main_heading"> Wrath of the Fallen Queen
+            <div id="lineHeading" class="line_heading"></div>
+        </div>
+    </div>
+</body>
+
+<script>
+    // Definitionen
+    let game = document.getElementById("game");
+	
+	let mainCurtain = document.getElementById("mainCurtain");
+	let hasPlayedMainContainer = false;
+    let mainHeading = document.getElementById("mainHeading");
+    let mainContainer = document.getElementById("mainContainer");
+	
+    let startButton = document.getElementById("startButton");
+	
+    let settingsButton = document.getElementById("settingsButton");
+    let settingsScreen = document.getElementById("settingsScreen");
+    let settingsBack = document.getElementById("settingsBack");
+	
+    let creditsButton = document.getElementById("creditsButton");
+    let creditsScreen = document.getElementById("creditsScreen");
+    let creditsBack = document.getElementById("creditsBack");
+	    
+    let exitButton = document.getElementById("exitButton");
+
+    // Funktionen
+    function mouseReveal() {
+        mainContainer.addEventListener("mouseover", function() {
+            if (!hasPlayedMainContainer) {
+                mainHeading.classList.toggle("main_container_ACTIVE");
+            }
+            hasPlayedMainContainer = true;
+        })
+		
+		//mainHeading.addEventListener("mouseover", function() {
+			//if (!hasplayedMainContainer) {}
+			//hasPlayedMainContainer = true;
+        //})
+
+        startButton.addEventListener("mouseover", function() {
+            if (!hasPlayedMainContainer) {}
+            hasPlayedMainContainer = true;
+        })
+
+        settingsButton.addEventListener("mouseover", function() {
+            if (!hasPlayedMainContainer) {}
+            hasPlayedMainContainer = true;
+        })
+
+        creditsButton.addEventListener("mouseover", function() {
+            if (!hasPlayedMainContainer) {}
+            hasPlayedMainContainer = true;
+        })
+
+        exitButton.addEventListener("click", function() {
+            window.close();
+        })
+
+        generateLetters();
+    }
+    mouseReveal();
+
+    function delayRedirect(event) {
+        event.preventDefault();
+        setTimeout(function() {
+            window.location.href = "./game.html";
+        }, 2000);
+    }
+
+    function eventListeners() {
+        //Überschrift
+		//mainHeading.addEventListener("click", function() {
+           // mainHeading.classList.toggle("heading_ACTIVE");
+       // });
+		
+		// Start
+        startButton.addEventListener("click", function() {
+            mainCurtain.classList.toggle("curtain_ACTIVE");
+        });
+
+        // Settings
+        settingsButton.addEventListener("click", function() {
+            settingsScreen.classList.toggle("settings_screen_ACTIVE");
+        })
+        settingsBack.addEventListener("click", function() {
+            settingsScreen.classList.toggle("settings_screen_ACTIVE");
+        })
+
+        // Credits
+        creditsButton.addEventListener("click", function() {
+            creditsScreen.classList.toggle("credits_screen_ACTIVE");
+        })
+        creditsBack.addEventListener("click", function() {
+            creditsScreen.classList.toggle("credits_screen_ACTIVE");
+        })
+		
+		//Exit
+		exitButton.addEventListener("click", function() {
+			exitButton.classList.toggle("exit_ACTIVE");
+
+    });
+	}
+	
+    eventListeners();
+
+    function generateLetters() {
+        const buttons = [
+			//{ button: mainHeading, content: "Wrath of the Fallen Queen", generated: false },
+            { button: startButton, content: "Start", generated: false },
+            { button: settingsButton, content: "Steuerung", generated: false },
+            { button: creditsButton, content: "Mitwirkende", generated: false },
+			{ button: exitButton, content: "Exit", generated: false }
+        ];
+
+        buttons.forEach(button => {
+            window.addEventListener("load", function() {
+                if (!button.generated) {
+                    const theLetters = "abcdefghijklmnopqrstuvwxyz#%&^+=-€ƒ†‡ŠŒŽšœžŸ¢£¤¥¦§©°±µ¶¼½¾¿?ÆÇÀÐÔÖ×Ø÷þø×";
+                    const content = button.content;
+                    const speed = 50;
+                    const increment = 4;
+                    const contentLength = content.length;
+                    let si = 0;
+                    let string = 0;
+                    let block = "";
+                    let fixed = "";
+
+                    function rustle(i) {
+                        setTimeout(function() {
+                            if (--i) {
+                                rustle(i);
+                            }
+                            nextFrame(i);
+                            si++;
+                        }, speed);
+                    }
+                    rustle(contentLength * increment + 1);
+
+                    function nextFrame(pos) {
+                        for (let i = 0; i < contentLength - string; i++) {
+                            const num = Math.floor(Math.random() * theLetters.length);
+                            const letter = theLetters.charAt(num);
+                            block += letter;
+                        }
+                        if (si === (increment - 1)) {
+                            string++;
+                        }
+                        if (si === increment) {
+                            fixed += content.charAt(string - 1);
+                            si = 0;
+                        }
+                        button.button.innerHTML = fixed + block;
+                        block = "";
+                    }
+                    button.generated = true;
+                }
+            });
+        });
+    }
+</script>
+
+</html>

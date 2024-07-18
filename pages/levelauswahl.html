@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levelauswahl</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(112, 112, 112);
+        }
+        canvas {
+            background-color: rgb(255, 255, 255);
+			margin-top: 3.4rem;
+        }
+        /* Stil für Zurück-Button */
+        #zurueckButton {
+            position: absolute;
+            height: 40px;
+            top: 75px;
+            left: 20px;
+            transition: transform 0.3s, filter 0.3s;
+        }
+        /* Effekt, wenn das Bild schwebt */
+        #zurueckButton:hover {
+            transform: scale(1.1);
+            filter: brightness(120%);
+        }
+		
+		#startButton {
+			background-image: url('../img/button.png'); /* Tileset-URL */
+		}
+       
+    </style>
+</head>
+<body>
+    
+    <!-- Canvas-Container -->
+    <div style="position: relative;">
+        <!-- Canvas für das Spiel -->
+        <canvas id="levelselection"></canvas>
+		
+		<!-- Zurück-Button -->
+		<img id="zurueckButton" src="../img/backbutton.png" onclick="goBack()">
+		
+		<!-- Start-Button -->
+		<button id="startButton"></button>
+    </div>
+    <!-- Skriptdateien -->
+    <script src="../script/levelauswahl.js"></script>
+    <script src="../script/miscellaneous/player.js"></script>
+    <script src="../script/levelselectionmap.js"></script>
+</body>
+</html>
