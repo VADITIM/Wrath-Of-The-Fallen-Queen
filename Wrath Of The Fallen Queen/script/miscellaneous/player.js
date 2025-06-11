@@ -115,6 +115,7 @@ class Player{
     }
     
     playheartSound() {
+
         const heartSound =  new Audio("../sounds/heart.mp3");
         heartSound.addEventListener("canplay", () => {
             heartSound.play();
